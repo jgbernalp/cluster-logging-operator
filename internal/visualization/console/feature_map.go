@@ -22,10 +22,10 @@ func FeaturesForOCP(version string) []string {
 		version = "v" + version
 	}
 
-	if semver.Compare(version, "v4.11") < 0 {
+	if semver.Compare(version, "v4.11.0-0") < 0 {
 		return []string{}
 	}
-	if semver.Compare(version, "v4.11") >= 0 && semver.Compare(version, "v4.13.0-0") < 0 {
+	if semver.Compare(version, "v4.11.0-0") >= 0 && semver.Compare(version, "v4.13.0-0") < 0 {
 		return []string{featureDevConsole}
 	}
 	return featuresIfUnmatched
