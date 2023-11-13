@@ -161,16 +161,28 @@ func (r *Reconciler) mutateConsolePlugin() error {
 			BasePath:  "/",
 			Port:      r.pluginBackendPort(),
 		},
-		Proxy: []consolev1alpha1.ConsolePluginProxy{{
-			Type:      "Service",
-			Alias:     "backend",
-			Authorize: true,
-			Service: consolev1alpha1.ConsolePluginProxyServiceConfig{
-				Name:      r.LokiService,
-				Namespace: r.Namespace(),
-				Port:      r.LokiPort,
+		Proxy: []consolev1alpha1.ConsolePluginProxy{
+			{
+				Type:      "Service",
+				Alias:     "backend",
+				Authorize: true,
+				Service: consolev1alpha1.ConsolePluginProxyServiceConfig{
+					Name:      r.LokiService,
+					Namespace: r.Namespace(),
+					Port:      r.LokiPort,
+				},
 			},
-		}},
+			{
+				Type:      "Service",
+				Alias:     "korrel8r",
+				Authorize: true,
+				Service: consolev1alpha1.ConsolePluginProxyServiceConfig{
+					Name:      "korrel8r",
+					Namespace: "korrel8r",
+					Port:      443,
+				},
+			},
+		},
 	}
 	r.mutateCommon(o)
 	return nil
